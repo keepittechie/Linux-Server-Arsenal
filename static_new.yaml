@@ -1,0 +1,13 @@
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    enp3s0:
+      addresses:
+        - 192.168.XXX.XXX/24
+      nameservers:
+        search: [mydomain, otherdomain]
+        addresses: [1.1.1.1, 1.0.0.1]
+      routes:
+        - to: default
+          via: 192.168.XXX.XXX
