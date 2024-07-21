@@ -18,9 +18,9 @@
 # Usage:
 #   1. Save the script to a file, for example, config-users.sh.
 #   2. Make the script executable:
-#      chmod +x manage-users.sh
+#      chmod +x config-users.sh
 #   3. Run the script:
-#      sudo ./manage-users.sh
+#      sudo ./config-users.sh
 #
 # The script will prompt for the desired action and user/group details.
 #
