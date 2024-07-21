@@ -16,7 +16,7 @@
 # License: MIT
 #
 # Usage:
-#   1. Save the script to a file, for example, manage-users.sh.
+#   1. Save the script to a file, for example, config-users.sh.
 #   2. Make the script executable:
 #      chmod +x manage-users.sh
 #   3. Run the script:
