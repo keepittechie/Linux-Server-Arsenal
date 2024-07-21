@@ -16,11 +16,11 @@
 # License: MIT
 #
 # Usage:
-#   1. Save the script to a file, for example, install-nodejs.sh.
+#   1. Save the script to a file, for example, auto-nodejs.sh.
 #   2. Make the script executable:
-#      chmod +x install-nodejs.sh
+#      chmod +x auto-nodejs.sh
 #   3. Run the script:
-#      sudo ./install-nodejs.sh
+#      sudo ./auto-nodejs.sh
 #
 ############################################################
 
