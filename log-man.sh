@@ -16,11 +16,11 @@
 # License: MIT
 #
 # Usage:
-#   1. Save the script to a file, for example, manage-logs.sh.
+#   1. Save the script to a file, for example, log-man.sh.
 #   2. Make the script executable:
-#      chmod +x manage-logs.sh
+#      chmod +x log-man.sh
 #   3. Run the script:
-#      sudo ./manage-logs.sh
+#      sudo ./log-man.sh
 #
 ############################################################
 
