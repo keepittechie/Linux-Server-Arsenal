@@ -17,11 +17,11 @@
 # License: MIT
 #
 # Usage:
-#   1. Save the script to a file, for example, manage-services.sh.
+#   1. Save the script to a file, for example, service-man.sh.
 #   2. Make the script executable:
-#      chmod +x manage-services.sh
+#      chmod +x service-man.sh
 #   3. Run the script:
-#      sudo ./manage-services.sh
+#      sudo ./service-man.sh
 #
 ############################################################
 
