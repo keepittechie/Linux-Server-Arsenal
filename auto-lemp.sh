@@ -16,11 +16,11 @@
 # License: MIT
 #
 # Usage:
-#   1. Save the script to a file, for example, install-lemp.sh.
+#   1. Save the script to a file, for example, auto-lemp.sh.
 #   2. Make the script executable:
-#      chmod +x install-lemp.sh
+#      chmod +x auto-lemp.sh
 #   3. Run the script:
-#      sudo ./install-lemp.sh
+#      sudo ./auto-lemp.sh
 #
 ############################################################
 
