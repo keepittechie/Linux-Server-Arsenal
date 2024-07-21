@@ -16,11 +16,11 @@
 # License: MIT
 #
 # Usage:
-#   1. Save the script to a file, for example, install-openvpn.sh.
+#   1. Save the script to a file, for example, auto-openvpn.sh.
 #   2. Make the script executable:
-#      chmod +x install-openvpn.sh
+#      chmod +x auto-openvpn.sh
 #   3. Run the script:
-#      sudo ./install-openvpn.sh
+#      sudo ./auto-openvpn.sh
 #
 ############################################################
 
