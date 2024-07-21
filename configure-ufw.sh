@@ -16,11 +16,11 @@
 # License: MIT
 #
 # Usage:
-#   1. Save the script to a file, for example, setup-firewall.sh.
+#   1. Save the script to a file, for example, config-ufw.sh.
 #   2. Make the script executable:
-#      chmod +x setup-firewall.sh
+#      chmod +x config-ufw.sh
 #   3. Run the script:
-#      sudo ./setup-firewall.sh
+#      sudo ./config-ufw.sh
 #
 # The script will prompt for:
 #   - Allowed ports (e.g., 22, 80, 443)
