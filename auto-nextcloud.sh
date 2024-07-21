@@ -15,11 +15,11 @@
 # License: MIT
 #
 # Usage:
-#   1. Save the script to a file, for example, install-nextcloud.sh.
+#   1. Save the script to a file, for example, auto-nextcloud.sh.
 #   2. Make the script executable:
-#      chmod +x install-nextcloud.sh
+#      chmod +x auto-nextcloud.sh
 #   3. Run the script:
-#      sudo ./install-nextcloud.sh
+#      sudo ./auto-nextcloud.sh
 #
 ############################################################
 
