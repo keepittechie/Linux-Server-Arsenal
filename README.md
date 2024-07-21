@@ -49,8 +49,8 @@ These scripts are created and maintained by [KeepItTechie](https://youtube.com/@
 To get started, clone this repository to your local machine:
 
 ```bash
-git clone https://github.com/yourusername/ubuntu-server-scripts.git
-cd ubuntu-server-scripts
+git clone https://github.com/keepittechie/Ubuntu-Server-Arsenal
+cd Ubuntu-Server-Arsenal
 ```
 
 Make the scripts executable:
