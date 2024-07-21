@@ -16,11 +16,11 @@
 # License: MIT
 #
 # Usage:
-#   1. Save the script to a file, for example, install-lamp.sh.
+#   1. Save the script to a file, for example, auto-lamp.sh.
 #   2. Make the script executable:
-#      chmod +x install-lamp.sh
+#      chmod +x auto-lamp.sh
 #   3. Run the script:
-#      sudo ./install-lamp.sh
+#      sudo ./auto-lamp.sh
 #
 ############################################################
 
