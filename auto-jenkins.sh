@@ -15,11 +15,11 @@
 # License: MIT
 #
 # Usage:
-#   1. Save the script to a file, for example, install-jenkins.sh.
+#   1. Save the script to a file, for example, auto-jenkins.sh.
 #   2. Make the script executable:
-#      chmod +x install-jenkins.sh
+#      chmod +x auto-jenkins.sh
 #   3. Run the script:
-#      sudo ./install-jenkins.sh
+#      sudo ./auto-jenkins.sh
 #
 ############################################################
 
