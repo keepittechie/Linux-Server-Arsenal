@@ -1,6 +1,6 @@
-# Ubuntu Server Scripts Collection
+# Ubuntu Server Arsenal
 
-Welcome to the Ubuntu Server Scripts Collection repository! This repository contains a variety of scripts designed to simplify the management and configuration of Ubuntu servers. Each script addresses specific tasks, ranging from network configuration to system backups, providing automated solutions for common administrative activities.
+Welcome to the Ubuntu Server Arsenal Collection repository! This repository contains a variety of scripts designed to simplify the management and configuration of Ubuntu servers. Each script addresses specific tasks, ranging from network configuration to system backups, providing automated solutions for common administrative activities.
 
 ## About
 
