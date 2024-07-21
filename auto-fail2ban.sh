@@ -16,11 +16,11 @@
 # License: MIT
 #
 # Usage:
-#   1. Save the script to a file, for example, install-fail2ban.sh.
+#   1. Save the script to a file, for example, auto-fail2ban.sh.
 #   2. Make the script executable:
-#      chmod +x install-fail2ban.sh
+#      chmod +x auto-fail2ban.sh
 #   3. Run the script:
-#      sudo ./install-fail2ban.sh
+#      sudo ./auto-fail2ban.sh
 #
 ############################################################
 
