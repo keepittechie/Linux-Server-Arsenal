@@ -17,11 +17,11 @@
 # License: MIT
 #
 # Usage:
-#   1. Save the script to a file, for example, setup-monitoring.sh.
+#   1. Save the script to a file, for example, system-mon.sh.
 #   2. Make the script executable:
-#      chmod +x setup-monitoring.sh
+#      chmod +x system-mon.sh
 #   3. Run the script:
-#      sudo ./setup-monitoring.sh
+#      sudo ./system-mon.sh
 #
 ############################################################
 
