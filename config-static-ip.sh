@@ -18,11 +18,11 @@
 # License: MIT
 #
 # Usage:
-#   1. Save the script to a file, for example, configure-static-ip.sh.
+#   1. Save the script to a file, for example, config-static-ip.sh.
 #   2. Make the script executable:
-#      chmod +x configure-static-ip.sh
+#      chmod +x config-static-ip.sh
 #   3. Run the script:
-#      sudo ./configure-static-ip.sh
+#      sudo ./config-static-ip.sh
 #
 # The script will prompt for:
 #   - Network interface name (e.g., eth0)
