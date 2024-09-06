@@ -1,12 +1,16 @@
-# Ubuntu Server Arsenal
+# Linux Server Arsenal
 
-Welcome to the Ubuntu Server Arsenal Collection repository! This repository contains a variety of scripts designed to simplify the management and configuration of Ubuntu servers. Each script addresses specific tasks, ranging from network configuration to system backups, providing automated solutions for common administrative activities.
+Welcome to the Linux Server Arsenal Collection repository! This repository contains a variety of scripts designed to simplify the management and configuration of Linux servers (Ubuntu, CentOS/RHEL, and Arch). Each script addresses specific tasks, ranging from network configuration to system backups, providing automated solutions for common administrative activities.
 
 ## About
 
-These scripts are created and maintained by [KeepItTechie](https://youtube.com/@KeepItTechie). They are designed to be user-friendly and are thoroughly documented to help both beginners and advanced users manage their Ubuntu servers more efficiently.
+These scripts are created and maintained by [KeepItTechie](https://youtube.com/@KeepItTechie). They are designed to be user-friendly and are thoroughly documented to help both beginners and advanced users manage their Linux servers more efficiently.
 
 ## Repository Contents
+
+### Main Script: LinservArsenal
+
+The `linservarsenal.sh` script provides an interactive terminal menu for managing the various scripts in this repository. Instead of running each script manually, you can launch the main script, which will display a menu allowing you to select and run the desired configuration or management script.
 
 ### Configuration and Management
 
@@ -32,8 +36,9 @@ These scripts are created and maintained by [KeepItTechie](https://youtube.com/@
 - **Auto DNS**: Set up a DNS caching server using `dnsmasq` or a full DNS server using `bind9`.
 - **Auto DHCP**: Install and configure a DHCP server using `isc-dhcp-server`.
 
-### Backups
+### Monitoring and Backup
 
+- **Prometheus and Grafana**: Install and configure Prometheus and Grafana for system and service monitoring.
 - **BorgGuard Backup Script**: Automate backups with BorgBackup for secure and efficient data management.
 
 ### Additional Applications
@@ -41,28 +46,48 @@ These scripts are created and maintained by [KeepItTechie](https://youtube.com/@
 - **Auto Redis**: Install and configure Redis.
 - **Auto Elasticsearch**: Install and configure Elasticsearch.
 - **Auto RabbitMQ**: Install and configure RabbitMQ.
-- **Auto Prometheus Grafana**: Install and configure Prometheus and Grafana for monitoring.
-- **Auto Nginx Reverse Proxy**: Install and configure Nginx as a reverse proxy.
+- **Nginx Reverse Proxy**: Install and configure Nginx as a reverse proxy.
 
 ## Getting Started
+
+### Cloning the Repository
 
 To get started, clone this repository to your local machine:
 
 ```bash
-git clone https://github.com/keepittechie/Ubuntu-Server-Arsenal
-cd Ubuntu-Server-Arsenal
+git clone https://github.com/keepittechie/Linux-Server-Arsenal
+cd Linux-Server-Arsenal
 ```
 
-Make the scripts executable:
+### Running the Main Menu Script
+
+The `linservarsenal.sh` script provides a menu for easy script selection and execution. Make the script executable and run it as follows:
 
 ```bash
-chmod +x *.sh
+chmod +x linservarsenal.sh
+sudo ./linservarsenal.sh
 ```
 
-Run the desired script with appropriate permissions:
+Once you run the script, you'll be presented with an interactive menu that lets you select the script you want to execute.
+
+### Running Individual Scripts
+
+You can also run individual scripts manually. Make all the scripts executable first:
 
 ```bash
-sudo ./script-name.sh
+chmod +x assets/*.sh
+```
+
+Run a specific script with the following command:
+
+```bash
+sudo ./assets/script-name.sh
+```
+
+For example, to install Apache Kafka, you can run:
+
+```bash
+sudo ./assets/apache-kafka.sh
 ```
 
 ## Contributions
