@@ -80,23 +80,22 @@ display_menu() {
         8 "Install Jenkins"
         9 "Install LAMP Stack"
         10 "Install LEMP Stack"
-        11 "Install LibreChat"
-        12 "Log Management"
-        13 "Manage Packages"
-        14 "Install Media Server"
-        15 "Install Nextcloud"
-        16 "Configure Nginx Reverse Proxy"
-        17 "Install Node.js and NPM"
-        18 "Install OpenVPN"
-        19 "Install Prometheus and Grafana"
-        20 "Install RabbitMQ"
-        21 "Install Redis"
-        22 "Manage Services"
-        23 "Configure Static IP"
-        24 "System Monitoring"
-        25 "Configure UFW Firewall"
-        26 "Manage Users"
-        27 "Exit"
+        11 "Log Management"
+        12 "Manage Packages"
+        13 "Install Media Server"
+        14 "Install Nextcloud"
+        15 "Configure Nginx Reverse Proxy"
+        16 "Install Node.js and NPM"
+        17 "Install OpenVPN"
+        18 "Install Prometheus and Grafana"
+        19 "Install RabbitMQ"
+        20 "Install Redis"
+        21 "Manage Services"
+        22 "Configure Static IP"
+        23 "System Monitoring"
+        24 "Configure UFW Firewall"
+        25 "Manage Users"
+        26 "Exit"
     )
 
     # Use dialog or whiptail depending on availability
@@ -131,23 +130,22 @@ run_script() {
         8) bash ./assets/jenkins.sh ;;
         9) bash ./assets/lamp.sh ;;
         10) bash ./assets/lemp.sh ;;
-        11) bash ./assets/librechat.sh ;;
-        12) bash ./assets/log-man.sh ;;
-        13) bash ./assets/manage-packages.sh ;;
-        14) bash ./assets/media.sh ;;
-        15) bash ./assets/nextcloud.sh ;;
-        16) bash ./assets/nginx-reverse-proxy.sh ;;
-        17) bash ./assets/nodejs-npm.sh ;;
-        18) bash ./assets/openvpn.sh ;;
-        19) bash ./assets/prometheus-grafana.sh ;;
-        20) bash ./assets/rabbitmq.sh ;;
-        21) bash ./assets/redis.sh ;;
-        22) bash ./assets/service-man.sh ;;
-        23) bash ./assets/static-ip.sh ;;
-        24) bash ./assets/system-mon.sh ;;
-        25) bash ./assets/ufw.sh ;;
-        26) bash ./assets/user.sh ;;
-        27) exit 0 ;;
+        11) bash ./assets/log-man.sh ;;
+        12) bash ./assets/manage-packages.sh ;;
+        13) bash ./assets/media.sh ;;
+        14) bash ./assets/nextcloud.sh ;;
+        15) bash ./assets/nginx-reverse-proxy.sh ;;
+        16) bash ./assets/nodejs-npm.sh ;;
+        17) bash ./assets/openvpn.sh ;;
+        18) bash ./assets/prometheus-grafana.sh ;;
+        19) bash ./assets/rabbitmq.sh ;;
+        20) bash ./assets/redis.sh ;;
+        21) bash ./assets/service-man.sh ;;
+        22) bash ./assets/static-ip.sh ;;
+        23) bash ./assets/system-mon.sh ;;
+        24) bash ./assets/ufw.sh ;;
+        25) bash ./assets/user.sh ;;
+        26) exit 0 ;;
         *) echo "Invalid choice!" ;;
     esac
 }
