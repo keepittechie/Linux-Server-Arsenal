@@ -8,19 +8,19 @@
 ####################################
 
 ############################################################
-# This script automates the installation of Node.js and NPM
-# on Ubuntu servers.
+# This script automates the installation of Docker, Ollama, 
+# and Open WebUI on Ubuntu servers.
 #
 # Author: KeepItTechie
-# Version: 1.0
+# Version: 1.2
 # License: MIT
 #
 # Usage:
-#   1. Save the script to a file, for example, auto-ollama.sh.
+#   1. Save the script to a file, for example, ollama.sh.
 #   2. Make the script executable:
-#      chmod +x auto-ollama.sh
+#      chmod +x ollama.sh
 #   3. Run the script:
-#      sudo ./auto-ollama.sh
+#      sudo ./ollama.sh
 #
 ############################################################
 
@@ -52,15 +52,12 @@ status "Installing Docker..."
 
 # Set up Docker's apt repository
 sudo apt-get update
-sudo apt-get install -y ca-certificates curl
-sudo install -m 0755 -d /etc/apt/keyrings
-sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-sudo chmod a+r /etc/apt/keyrings/docker.asc
-
+sudo apt-get install -y ca-certificates curl gnupg lsb-release
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
-  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 # Install Docker Engine
 sudo apt-get update
@@ -108,10 +105,10 @@ status "Setting up Open WebUI with Docker and bundled Ollama support..."
 
 # Choose the appropriate command based on your hardware (CPU-only or GPU support)
 # For GPU support, uncomment the following line:
-# docker run -d -p 3000:8080 --gpus=all -v ollama:/root/.ollama -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:ollama
+# docker run -d --network=host --gpus=all -v ollama:/root/.ollama -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:ollama
 
 # For CPU-only, use this command:
-docker run -d -p 3000:8080 -v ollama:/root/.ollama -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:ollama
+docker run -d --network=host -v ollama:/root/.ollama -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:ollama
 
-status "Open WebUI is now running on http://<your-server-ip>:3000."
+status "Open WebUI is now running on http://<your-server-ip>:8080."
 status "Combined installation complete."
