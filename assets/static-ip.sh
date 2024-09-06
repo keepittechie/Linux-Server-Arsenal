@@ -14,7 +14,7 @@
 # appropriate Netplan configuration file.
 #
 # Author: KeepItTechie
-# Version: 1.0
+# Version: 2.0
 # License: MIT
 #
 # Usage:
@@ -42,28 +42,57 @@ gather_input() {
     read -p "Enter the interface name (e.g., eth0): " INTERFACE
     read -p "Enter the static IP address (e.g., 192.168.1.100/24): " IP_ADDRESS
     read -p "Enter the gateway (e.g., 192.168.1.1): " GATEWAY
-    read -p "Enter the DNS servers (e.g., 8.8.8.8, 8.8.4.4): " DNS_SERVERS
+    read -p "Enter the DNS servers (comma-separated, e.g., 8.8.8.8, 8.8.4.4): " DNS_SERVERS
+
+    # Confirm input
+    echo "You have entered the following details:"
+    echo "Interface: $INTERFACE"
+    echo "Static IP Address: $IP_ADDRESS"
+    echo "Gateway: $GATEWAY"
+    echo "DNS Servers: $DNS_SERVERS"
+    read -p "Is this information correct? (y/n): " CONFIRM
+
+    if [[ "$CONFIRM" != "y" ]]; then
+        echo "Exiting without making any changes."
+        exit 1
+    fi
 }
 
 # Function to create the Netplan configuration file
 create_netplan_config() {
     CONFIG_FILE="/etc/netplan/01-netcfg.yaml"
 
-    echo "network:" > $CONFIG_FILE
-    echo "  version: 2" >> $CONFIG_FILE
-    echo "  ethernets:" >> $CONFIG_FILE
-    echo "    $INTERFACE:" >> $CONFIG_FILE
-    echo "      addresses:" >> $CONFIG_FILE
-    echo "        - $IP_ADDRESS" >> $CONFIG_FILE
-    echo "      gateway4: $GATEWAY" >> $CONFIG_FILE
-    echo "      nameservers:" >> $CONFIG_FILE
-    echo "        addresses:" >> $CONFIG_FILE
-    echo "          - $(echo $DNS_SERVERS | sed 's/,/\n          - /g')" >> $CONFIG_FILE
+    # Backup the existing config if it exists
+    if [ -f $CONFIG_FILE ]; then
+        sudo cp $CONFIG_FILE "${CONFIG_FILE}.bak_$(date +%F_%T)"
+        echo "Backup of existing Netplan config created: ${CONFIG_FILE}.bak_$(date +%F_%T)"
+    fi
+
+    # Create the new configuration file
+    echo "network:" | sudo tee $CONFIG_FILE
+    echo "  version: 2" | sudo tee -a $CONFIG_FILE
+    echo "  ethernets:" | sudo tee -a $CONFIG_FILE
+    echo "    $INTERFACE:" | sudo tee -a $CONFIG_FILE
+    echo "      addresses:" | sudo tee -a $CONFIG_FILE
+    echo "        - $IP_ADDRESS" | sudo tee -a $CONFIG_FILE
+    echo "      gateway4: $GATEWAY" | sudo tee -a $CONFIG_FILE
+    echo "      nameservers:" | sudo tee -a $CONFIG_FILE
+    echo "        addresses:" | sudo tee -a $CONFIG_FILE
+    echo "          - $(echo $DNS_SERVERS | sed 's/,/\n          - /g')" | sudo tee -a $CONFIG_FILE
+
+    echo "Netplan configuration created at $CONFIG_FILE"
 }
 
 # Function to apply the Netplan configuration
 apply_netplan_config() {
-    netplan apply
+    echo "Applying Netplan configuration..."
+    sudo netplan apply
+
+    if [ $? -eq 0 ]; then
+        echo "Netplan configuration applied successfully."
+    else
+        echo "Error applying Netplan configuration. Please check the configuration file."
+    fi
 }
 
 # Main script execution
@@ -72,4 +101,4 @@ gather_input
 create_netplan_config
 apply_netplan_config
 
-echo "Netplan configuration applied successfully."
+echo "Static IP configuration complete."

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ####################################
-# Auto Database Installation Script for Ubuntu Server
+# Auto Database Installation Script for Debian, CentOS/RHEL, and Arch
 # Created by: KeepItTechie
 # YouTube Channel: https://youtube.com/@KeepItTechie
 # Blog: https://docs.keepittechie.com/
@@ -9,11 +9,11 @@
 
 ############################################################
 # This script automates the installation of MySQL, MariaDB,
-# or PostgreSQL on Ubuntu servers. The user is prompted to 
-# select which database they would like to install.
+# or PostgreSQL on Debian, CentOS/RHEL, and Arch-based systems.
+# The user is prompted to select which database they would like to install.
 #
 # Author: KeepItTechie
-# Version: 1.0
+# Version: 2.0
 # License: MIT
 #
 # Usage:
@@ -24,6 +24,17 @@
 #      sudo ./auto-database.sh
 #
 ############################################################
+
+# Function to detect the Linux distribution
+detect_distro() {
+    if [ -f /etc/os-release ]; then
+        . /etc/os-release
+        DISTRO=$ID
+    else
+        echo "Unsupported distribution!"
+        exit 1
+    fi
+}
 
 # Function to prompt user for selection
 select_database() {
@@ -36,29 +47,74 @@ select_database() {
 
 # Function to install MySQL
 install_mysql() {
-    apt update
-    apt install -y mysql-server
-    systemctl enable mysql
-    systemctl start mysql
+    case "$DISTRO" in
+        ubuntu|debian)
+            sudo apt update
+            sudo apt install -y mysql-server
+            ;;
+        centos|rhel|rocky|alma)
+            sudo dnf install -y mysql-server
+            ;;
+        arch)
+            sudo pacman -Sy --noconfirm mysql
+            ;;
+        *)
+            echo "Unsupported distribution!"
+            exit 1
+            ;;
+    esac
+    sudo systemctl enable mysqld
+    sudo systemctl start mysqld
 }
 
 # Function to install MariaDB
 install_mariadb() {
-    apt update
-    apt install -y mariadb-server
-    systemctl enable mariadb
-    systemctl start mariadb
+    case "$DISTRO" in
+        ubuntu|debian)
+            sudo apt update
+            sudo apt install -y mariadb-server
+            ;;
+        centos|rhel|rocky|alma)
+            sudo dnf install -y mariadb-server
+            ;;
+        arch)
+            sudo pacman -Sy --noconfirm mariadb
+            ;;
+        *)
+            echo "Unsupported distribution!"
+            exit 1
+            ;;
+    esac
+    sudo systemctl enable mariadb
+    sudo systemctl start mariadb
 }
 
 # Function to install PostgreSQL
 install_postgresql() {
-    apt update
-    apt install -y postgresql postgresql-contrib
-    systemctl enable postgresql
-    systemctl start postgresql
+    case "$DISTRO" in
+        ubuntu|debian)
+            sudo apt update
+            sudo apt install -y postgresql postgresql-contrib
+            ;;
+        centos|rhel|rocky|alma)
+            sudo dnf install -y postgresql postgresql-server
+            sudo postgresql-setup --initdb
+            ;;
+        arch)
+            sudo pacman -Sy --noconfirm postgresql
+            sudo su - postgres -c "initdb --locale en_US.UTF-8 -D /var/lib/postgres/data"
+            ;;
+        *)
+            echo "Unsupported distribution!"
+            exit 1
+            ;;
+    esac
+    sudo systemctl enable postgresql
+    sudo systemctl start postgresql
 }
 
 # Main script execution
+detect_distro
 select_database
 
 case $DB_CHOICE in

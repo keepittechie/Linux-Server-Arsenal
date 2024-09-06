@@ -12,7 +12,7 @@
 # (UFW) on Ubuntu servers with predefined rules.
 #
 # Author: KeepItTechie
-# Version: 1.0
+# Version: 2.0
 # License: MIT
 #
 # Usage:
@@ -36,19 +36,47 @@ gather_input() {
     read -p "Enter allowed ports (comma-separated, e.g., 22,80,443): " ALLOWED_PORTS
     read -p "Enter default incoming policy (allow/deny/reject): " DEFAULT_IN_POLICY
     read -p "Enter default outgoing policy (allow/deny/reject): " DEFAULT_OUT_POLICY
+
+    # Confirm input
+    echo "You have entered the following details:"
+    echo "Allowed Ports: $ALLOWED_PORTS"
+    echo "Default Incoming Policy: $DEFAULT_IN_POLICY"
+    echo "Default Outgoing Policy: $DEFAULT_OUT_POLICY"
+    read -p "Is this information correct? (y/n): " CONFIRM
+
+    if [[ "$CONFIRM" != "y" ]]; then
+        echo "Exiting without applying firewall rules."
+        exit 1
+    fi
 }
 
 # Function to configure UFW
 configure_ufw() {
-    ufw default $DEFAULT_IN_POLICY incoming
-    ufw default $DEFAULT_OUT_POLICY outgoing
+    echo "Configuring UFW..."
 
+    # Set default policies
+    sudo ufw default "$DEFAULT_IN_POLICY" incoming
+    sudo ufw default "$DEFAULT_OUT_POLICY" outgoing
+
+    # Configure allowed ports
     IFS=',' read -ra PORTS <<< "$ALLOWED_PORTS"
     for PORT in "${PORTS[@]}"; do
-        ufw allow $PORT
+        sudo ufw allow "$PORT"
+        if [ $? -eq 0 ]; then
+            echo "Port $PORT allowed successfully."
+        else
+            echo "Failed to allow port $PORT."
+        fi
     done
 
-    ufw enable
+    # Enable UFW
+    sudo ufw enable
+    if [ $? -eq 0 ]; then
+        echo "UFW enabled successfully."
+    else
+        echo "Error enabling UFW. Please check the configuration."
+        exit 1
+    fi
 }
 
 # Main script execution

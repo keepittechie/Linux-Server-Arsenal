@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ####################################
-# DHCP Server Installation Script for Ubuntu Server
+# DHCP Server Installation Script for Debian, CentOS/RHEL, and Arch
 # Created by: KeepItTechie
 # YouTube Channel: https://youtube.com/@KeepItTechie
 # Blog: https://docs.keepittechie.com/
@@ -9,11 +9,11 @@
 
 ############################################################
 # This script automates the installation and configuration of 
-# a DHCP server on Ubuntu servers using isc-dhcp-server.
+# a DHCP server on Debian, CentOS/RHEL, and Arch-based systems.
 # The user is prompted to enter the network configuration details.
 #
 # Author: KeepItTechie
-# Version: 1.0
+# Version: 2.0
 # License: MIT
 #
 # Usage:
@@ -25,13 +25,38 @@
 #
 ############################################################
 
-# Function to install isc-dhcp-server
-install_dhcp_server() {
-    apt update
-    apt install -y isc-dhcp-server
+# Function to detect the Linux distribution
+detect_distro() {
+    if [ -f /etc/os-release ]; then
+        . /etc/os-release
+        DISTRO=$ID
+    else
+        echo "Unsupported distribution!"
+        exit 1
+    fi
 }
 
-# Function to configure isc-dhcp-server
+# Function to install the DHCP server
+install_dhcp_server() {
+    case "$DISTRO" in
+        ubuntu|debian)
+            sudo apt update
+            sudo apt install -y isc-dhcp-server
+            ;;
+        centos|rhel|rocky|alma)
+            sudo dnf install -y dhcp-server
+            ;;
+        arch)
+            sudo pacman -Sy --noconfirm dhcp
+            ;;
+        *)
+            echo "Unsupported distribution!"
+            exit 1
+            ;;
+    esac
+}
+
+# Function to configure the DHCP server
 configure_dhcp_server() {
     echo "Enter the network interface for the DHCP server (e.g., eth0): "
     read INTERFACE
@@ -46,11 +71,28 @@ configure_dhcp_server() {
     echo "Enter the DNS server (e.g., 8.8.8.8): "
     read DNS_SERVER
 
-    # Configure /etc/default/isc-dhcp-server
-    echo "INTERFACESv4=\"$INTERFACE\"" > /etc/default/isc-dhcp-server
+    # Configure /etc/default/isc-dhcp-server or equivalent file depending on distro
+    case "$DISTRO" in
+        ubuntu|debian)
+            echo "INTERFACESv4=\"$INTERFACE\"" > /etc/default/isc-dhcp-server
+            DHCPD_CONF_PATH="/etc/dhcp/dhcpd.conf"
+            ;;
+        centos|rhel|rocky|alma)
+            echo "DHCPDARGS=\"$INTERFACE\";" > /etc/sysconfig/dhcpd
+            DHCPD_CONF_PATH="/etc/dhcp/dhcpd.conf"
+            ;;
+        arch)
+            echo "DHCPD4_ARGS=\"$INTERFACE\"" > /etc/conf.d/dhcpd
+            DHCPD_CONF_PATH="/etc/dhcpd.conf"
+            ;;
+        *)
+            echo "Unsupported distribution!"
+            exit 1
+            ;;
+    esac
 
-    # Configure /etc/dhcp/dhcpd.conf
-    cat <<EOF > /etc/dhcp/dhcpd.conf
+    # Configure the dhcpd.conf file
+    cat <<EOF > $DHCPD_CONF_PATH
 option domain-name "example.com";
 option domain-name-servers $DNS_SERVER;
 
@@ -66,13 +108,23 @@ subnet $SUBNET netmask $NETMASK {
 }
 EOF
 
-    systemctl restart isc-dhcp-server
-    systemctl enable isc-dhcp-server
+    # Restart and enable the DHCP service
+    case "$DISTRO" in
+        ubuntu|debian|centos|rhel|rocky|alma)
+            sudo systemctl restart isc-dhcp-server || sudo systemctl restart dhcpd
+            sudo systemctl enable isc-dhcp-server || sudo systemctl enable dhcpd
+            ;;
+        arch)
+            sudo systemctl restart dhcpd4
+            sudo systemctl enable dhcpd4
+            ;;
+    esac
 }
 
 # Main script execution
-echo "DHCP Server Installation for Ubuntu Server"
+echo "DHCP Server Installation for Debian, CentOS/RHEL, and Arch"
 
+detect_distro
 install_dhcp_server
 configure_dhcp_server
 
